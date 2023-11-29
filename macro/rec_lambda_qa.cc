@@ -19,23 +19,23 @@ void rec_lambda_qa(){
 			.Define("good_candidate",
 					"std::vector<int> good_candidate;"
 					"for(int i=0; i<daughter_chi2_prim.at(0).size(); ++i){"
-						"if( m_err.at(i)*2*candidate_mass.at(i) > 0.001 ){"
-							"good_candidate.push_back(0);"
-							"continue;"
-						"}"
-					/*	"if( candidate_cos_topo.at(i) < 0.99 ){"
+					/*	"if( m_err.at(i)*2*candidate_mass.at(i) > 0.005 ){"
 							"good_candidate.push_back(0);"
 							"continue;"
 						"}"*/
-                                                "if( daughter2_cos.at(i) < 0.99 ){"
-                                                        "good_candidate.push_back(0);"
-                                                        "continue;"
-                                                "}"
-						"if( daughter1_chi2_prim.at(i) < 535 ){"
+						"if( candidate_cos_topo.at(i) < 0.998 ){"
 							"good_candidate.push_back(0);"
 							"continue;"
 						"}"
-						"if( daughter2_chi2_prim.at(i) < 50 ){"
+                                                "if( daughter2_cos.at(i) < 0.997 || daughter2_cos.at(i) > 0.9998 ){"
+                                                        "good_candidate.push_back(0);"
+                                                        "continue;"
+                                                "}"
+						"if( daughter1_chi2_prim.at(i) < 400 ){"
+							"good_candidate.push_back(0);"
+							"continue;"
+						"}"
+						"if( daughter2_chi2_prim.at(i) < 10 ){"
 							"good_candidate.push_back(0);"
 							"continue;"
 						"}"
@@ -47,15 +47,15 @@ void rec_lambda_qa(){
 							"good_candidate.push_back(0);"
 							"continue;"
 						"}"
-						"if( candidate_chi2_topo.at(i) > 51 ){"
+						"if( candidate_chi2_topo.at(i) > 50 ){"
 							"good_candidate.push_back(0);"
 							"continue;"
 						"}"
-                                                 "if( candidate_chi2_geo.at(i) < 40  ){"
+                                                 "if( candidate_chi2_geo.at(i) > 20  ){"
                                                         "good_candidate.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                                "if( daughter_dca.at(i) < 0.728  ){"
+                                                "if( daughter_dca.at(i) > 0.7  ){"
                                                         "good_candidate.push_back(0);"
                                                         "continue;"
                                                 "}"
@@ -66,18 +66,18 @@ void rec_lambda_qa(){
          .Define("basic_cut",
                                         "std::vector<int> basic_cut;"
                                         "for(int i=0; i<daughter_chi2_prim.at(0).size(); ++i){"
-                                                "if( m_err.at(i)*2*candidate_mass.at(i) > 0.001 ){"
-                                                        "basic_cut.push_back(0);"
-                                                        "continue;"
-                                                "}"
-                                               /* "if( candidate_cos_topo.at(i) < 0.99 ){"
+                                               /* "if( m_err.at(i)*2*candidate_mass.at(i) > 0.001 ){"
                                                         "basic_cut.push_back(0);"
                                                         "continue;"
                                                 "}"*/
-                                                "if( daughter2_cos.at(i) < 0.99 ){"
+                                                "if( candidate_cos_topo.at(i) < 0.99 ){"
                                                         "basic_cut.push_back(0);"
                                                         "continue;"
                                                 "}"
+                                               /* "if( daughter2_cos.at(i) < 0.99 ){"
+                                                        "basic_cut.push_back(0);"
+                                                        "continue;"
+                                                "}"*/
                                                 "if( candidate_L.at(i) < 2.25 ){"
                                                         "basic_cut.push_back(0);"
                                                         "continue;"
@@ -86,6 +86,12 @@ void rec_lambda_qa(){
                                                         "basic_cut.push_back(0);"
                                                         "continue;"
                                                 "}"
+                                                 "if( daughter_dca.at(i) > 0.728  ){"
+                                                        "basic_cut.push_back(0);"
+                                                        "continue;"
+                                                "}"
+
+                                                 
 
                                                 "basic_cut.push_back( 1 );"
                                         "} return basic_cut;"
@@ -93,39 +99,28 @@ void rec_lambda_qa(){
           .Define("basic_var",
                                         "std::vector<int> basic_var;"
                                         "for(int i=0; i<daughter_chi2_prim.at(0).size(); ++i){"
-                                                "if( m_err.at(i)*2*candidate_mass.at(i) > 0.001 ){"
+                                                "if( daughter1_chi2_prim.at(i) < 5 ){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                                "if( daughter2_cos.at(i) < 0.99 ){"
+                                                "if( daughter2_chi2_prim.at(i) < 3 ){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                                "if( daughter1_chi2_prim.at(i) < 535 ){"
+                                                "if( candidate_L.at(i) < 7 ){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                               /* "if( daughter2_chi2_prim.at(i) < 50 ){"
-                                                        "basic_var.push_back(0);"
-                                                        "continue;"
-                                                "}"*/
-                                                "if( candidate_L.at(i) < 2.25 ){"
+						"if( candidate_cos_topo.at(i) < 0.9999999390765){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                                "if( candidate_LdL.at(i) < 6.25 ){"
+
+                                                "if( candidate_chi2_topo.at(i) > 8 ){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
-                                                /*"if( candidate_chi2_topo.at(i) > 51 ){"
-                                                        "basic_var.push_back(0);"
-                                                        "continue;"
-                                                "}"*/
-                                                 "if( candidate_chi2_geo.at(i) < 40  ){"
-                                                        "basic_var.push_back(0);"
-                                                        "continue;"
-                                                "}"
-                                                "if( daughter_dca.at(i) < 0.728  ){"
+                                                "if( daughter_dca.at(i) > 0.8  ){"
                                                         "basic_var.push_back(0);"
                                                         "continue;"
                                                 "}"
@@ -140,7 +135,7 @@ void rec_lambda_qa(){
 
 	std::vector<ROOT::RDF::RResultPtr<::TH1D>> hist1d;
 	std::vector<ROOT::RDF::RResultPtr<::TH2D>> hist2d;
-        std::vector<std::string> cuts {"good_candidate", "basic_cut", "basic_var"};
+        std::vector<std::string> cuts {"good_candidate","basic_var"};
 	hist1d.push_back( dd.Histo1D( { "h1_mass", ";m (GeV/c^2); counts", 100, 1.05, 1.25 }, "candidate_mass" ) );
 	hist1d.push_back( dd.Histo1D( { "h1_pT", ";p_{T} (GeV/c); counts", 100, 0.00, 2.0 }, "candidate_pT" ) );
 	hist1d.push_back( dd.Histo1D( { "h1_phi", ";#varphi (rad); counts", 100, -3.50, 3.5 }, "candidate_phi" ) );
@@ -172,7 +167,53 @@ hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_m_inv", ";#chi^{2}_{geo};m_inv (GeV
 hist2d.push_back( dd.Histo2D( { "h2_L_m_inv", ";L;m_inv (GeV/c^2)", 80, 0.0, 20, 100, 1.05, 1.25  }, "candidate_L", "candidate_mass" ) );
 hist2d.push_back( dd.Histo2D( { "h2_LdL_m_inv", ";L/dL;m_inv (GeV/c^2)", 160, 0.0, 40, 100, 1.05, 1.25  }, "candidate_LdL", "candidate_mass" ) );
 hist2d.push_back( dd.Histo2D( { "h2_cos_topo_m_inv", ";r_{#lambda}p_{#lambda};m_inv (GeV/c^2)", 100, 0.98, 1, 100, 1.05, 1.25  }, "candidate_cos_topo", "candidate_mass" ) );
-	
+
+ hist2d.push_back( dd.Histo2D( { "h2_chi2_topo_pi_chi2", ";#chi^{2}_{topo};#chi^{2}_{prim}^{1}", 100, 0.0, 100, 100, 0, 1000  }, "candidate_chi2_topo", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_p_chi2_prim_pi_chi2", ";#chi^{2}_{prim}^{2};#chi^{2}_{prim}^{1}", 100, 0.0, 200, 100, 0, 1000  }, "daughter2_chi2_prim", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_p_lam_pi_chi2", ";cos(#varphi_{2});#chi^{2}_{prim}^{1}", 100, 0.98, 1, 100, 0, 1000   }, "daughter2_cos", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_dca_pi_chi2", ";DCA;#chi^{2}_{prim}^{1}", 200, 0.0, 2, 100, 0, 1000   }, "daughter_dca", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_pi_chi2", ";#chi^{2}_{geo};#chi^{2}_{prim}^{1}", 50, 0.0, 100, 100, 0, 1000   }, "candidate_chi2_geo", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_L_pi_chi2", ";L;#chi^{2}_{prim}^{1}", 80, 0.0, 20, 100, 0, 1000   }, "candidate_L", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_pi_chi2", ";L/dL;#chi^{2}_{prim}^{1}", 160, 0.0, 40, 100, 0, 1000   }, "candidate_LdL", "daughter1_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_pi_chi2", ";r_{#lambda}p_{#lambda};#chi^{2}_{prim}^{1}", 100, 0.98, 1, 100, 0, 1000   }, "candidate_cos_topo", "daughter1_chi2_prim" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_p_chi2_prim_chi2_topo", ";#chi^{2}_{prim}^{2};#chi^{2}_{topo}", 100, 0.0, 200, 100, 0, 100  }, "daughter2_chi2_prim", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_p_lam_chi2_topo", ";cos(#varphi_{2});#chi^{2}_{topo}", 100, 0.98, 1, 100, 0, 100   }, "daughter2_cos", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_dca_chi2_topo", ";DCA;#chi^{2}_{topo}", 200, 0.0, 2, 100, 0, 100   }, "daughter_dca", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_chi2_topo", ";#chi^{2}_{geo};#chi^{2}_{topo}", 50, 0.0, 100, 100, 0, 100   }, "candidate_chi2_geo", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_L_chi2_topo", ";L;#chi^{2}_{topo}", 80, 0.0, 20, 100, 0, 100   }, "candidate_L", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_chi2_topo", ";L/dL;#chi^{2}_{topo}", 160, 0.0, 40, 100, 0, 100   }, "candidate_LdL", "candidate_chi2_topo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_chi2_topo", ";r_{#lambda}p_{#lambda};#chi^{2}_{topo}", 100, 0.98, 1, 100, 0, 100   }, "candidate_cos_topo", "candidate_chi2_topo" ) );
+
+
+hist2d.push_back( dd.Histo2D( { "h2_cos_p_lam_p_chi2", ";cos(#varphi_{2});#chi^{2}_{prim}^{2}", 100, 0.98, 1, 100, 0, 200   }, "daughter2_cos", "daughter2_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_dca_p_chi2", ";DCA;#chi^{2}_{prim}^{2}", 200, 0.0, 2, 100, 0, 200   }, "daughter_dca", "daughter2_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_p_chi2", ";#chi^{2}_{geo};#chi^{2}_{prim}^{2}", 50, 0.0, 100, 100, 0, 200   }, "candidate_chi2_geo", "daughter2_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_L_p_chi2", ";L;#chi^{2}_{prim}^{2}", 80, 0.0, 20, 100, 0, 200   }, "candidate_L", "daughter2_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_p_chi2", ";L/dL;#chi^{2}_{prim}^{2}", 160, 0.0, 40, 100, 0, 200   }, "candidate_LdL", "daughter2_chi2_prim" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_p_chi2", ";r_{#lambda}p_{#lambda};#chi^{2}_{prim}^{2}", 100, 0.98, 1, 100, 0, 200   }, "candidate_cos_topo", "daughter2_chi2_prim" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_dca_cos_p_lam", ";DCA;cos(#varphi_{2})", 200, 0.0, 2, 100, 0.98, 1   }, "daughter_dca", "daughter2_cos" ) );
+hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_cos_p_lam", ";#chi^{2}_{geo};cos(#varphi_{2})", 50, 0.0, 100, 100, 0.98, 1    }, "candidate_chi2_geo", "daughter2_cos" ) );
+hist2d.push_back( dd.Histo2D( { "h2_L_cos_p_lam", ";L;cos(#varphi_{2})", 80, 0.0, 20, 100, 0.98, 1    }, "candidate_L", "daughter2_cos" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_cos_p_lam", ";L/dL;cos(#varphi_{2})", 160, 0.0, 40, 100, 0.98, 1    }, "candidate_LdL", "daughter2_cos" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_cos_p_lam", ";r_{#lambda}p_{#lambda};cos(#varphi_{2})", 100, 0.98, 1, 100, 0.98, 1    }, "candidate_cos_topo", "daughter2_cos" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_chi2_geo_dca", ";#chi^{2}_{geo};DCA", 50, 0.0, 100, 200, 0, 2    }, "candidate_chi2_geo", "daughter_dca" ) );
+hist2d.push_back( dd.Histo2D( { "h2_L_dca", ";L;DCA", 80, 0.0, 20, 200, 0, 2    }, "candidate_L", "daughter_dca" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_dca", ";L/dL;DCA", 160, 0.0, 40, 200, 0, 2    }, "candidate_LdL", "daughter_dca" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_dca", ";r_{#lambda}p_{#lambda};DCA", 100, 0.98, 1, 200, 0, 2    }, "candidate_cos_topo", "daughter_dca" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_L_chi2_geo", ";L;#chi^{2}_{geo}", 80, 0.0, 20, 50, 0, 100    }, "candidate_L", "candidate_chi2_geo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_LdL_chi2_geo", ";L/dL;#chi^{2}_{geo}", 160, 0.0, 40, 50, 0, 100    }, "candidate_LdL", "candidate_chi2_geo" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_chi2_geo", ";r_{#lambda}p_{#lambda};#chi^{2}_{geo}", 100, 0.98, 1, 50, 0, 100    }, "candidate_cos_topo", "candidate_chi2_geo" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_LdL_L", ";L/dL;L", 160, 0.0, 40, 80, 0, 20    }, "candidate_LdL", "candidate_L" ) );
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_L", ";r_{#lambda}p_{#lambda};L", 100, 0.98, 1, 80, 0, 20    }, "candidate_cos_topo", "candidate_L" ) );
+
+hist2d.push_back( dd.Histo2D( { "h2_cos_topo_LdL", ";r_{#lambda}p_{#lambda};L/dL", 100, 0.98, 1, 160, 0, 40    }, "candidate_cos_topo", "candidate_LdL" ) );
+
+
 	for( auto cut : cuts ){
 		hist1d.push_back( dd.Histo1D( { std::data("h1_mass_"+cut), ";m (GeV/c^2); counts", 100, 1.05, 1.25 }, "candidate_mass", cut ) );
 			hist1d.push_back( dd.Histo1D( { std::data("h1_pT_"+cut), ";p_{T} (GeV/c); counts", 100, 0.00, 2.0 }, "candidate_pT", cut ) );
@@ -194,6 +235,18 @@ hist2d.push_back( dd.Histo2D( { "h2_cos_topo_m_inv", ";r_{#lambda}p_{#lambda};m_
 			hist1d.push_back( dd.Histo1D( { std::data("h1_candidate_L_"+cut), ";L; counts", 100, 0.0, 20.0 }, "candidate_L", cut ) );
 			hist1d.push_back( dd.Histo1D( { std::data("h1_candidate_LdL_"+cut), ";L/dL; counts", 100, 0.0, 20.0 }, "candidate_LdL", cut ) );
 			hist2d.push_back( dd.Histo2D( { std::data("h2_pT_y_"+cut), ";y;p_{T} (GeV/c)", 30, 0.0, 3.0, 25, 0.0, 2.5  }, "candidate_rapidity", "candidate_pT", cut ) );
+
+hist2d.push_back( dd.Histo2D( { std::data("h2_m_err_m_inv"+cut), ";#Deltam (GeV/c^2);m_inv (GeV/c^2)", 100, 0.0, 0.01, 100, 1.05, 1.25  }, "m_err", "candidate_mass",cut ) );
+ hist2d.push_back( dd.Histo2D( { std::data("h2_pi_chi2_prim_m_inv"+cut), ";#chi^{2}_{prim}^{1};m_inv (GeV/c^2)", 1000, 0, 10000, 100, 1.05, 1.25  }, "daughter1_chi2_prim", "candidate_mass",cut ) );       
+ hist2d.push_back( dd.Histo2D( { std::data("h2_chi2_topo_m_inv"+cut), ";#chi^{2}_{topo};m_inv (GeV/c^2)", 200, 0.0, 200, 100, 1.05, 1.25  }, "candidate_chi2_topo", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_p_chi2_prim_m_inv"+cut), ";#chi^{2}_{prim}^{2};m_inv (GeV/c^2)", 100, 0, 1000, 100, 1.05, 1.25  }, "daughter2_chi2_prim", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_cos_p_lam_m_inv"+cut), ";cos(#varphi_{2});m_inv (GeV/c^2)", 1000, 0.99, 1, 100, 1.05, 1.25  }, "daughter2_cos", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_dca_m_inv"+cut), ";DCA;m_inv (GeV/c^2)", 200, 0.0, 2, 100, 1.05, 1.25  }, "daughter_dca", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_chi2_geo_m_inv"+cut), ";#chi^{2}_{geo};m_inv (GeV/c^2)", 100, 0.0, 100, 100, 1.05, 1.25  }, "candidate_chi2_geo", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_L_m_inv"+cut), ";L;m_inv (GeV/c^2)", 100, 0.0, 50, 100, 1.05, 1.25  }, "candidate_L", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_LdL_m_inv"+cut), ";L/dL;m_inv (GeV/c^2)", 200, 0.0, 100, 100, 1.05, 1.25  }, "candidate_LdL", "candidate_mass",cut ) );
+hist2d.push_back( dd.Histo2D( { std::data("h2_cos_topo_m_inv"+cut), ";r_{#lambda}p_{#lambda};m_inv (GeV/c^2)", 1000, 0.99, 1, 100, 1.05, 1.25  }, "candidate_cos_topo", "candidate_mass",cut ) );
+
 	}
 	auto file_out = TFile::Open("rec_lambda_qa.root", "recreate");
 	for( auto& h1 : hist1d )
